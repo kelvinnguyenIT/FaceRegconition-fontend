@@ -1,0 +1,15 @@
+.header-banner {
+    @apply col-start-2 col-span-10 md:col-start-2 md:col-span-4 mx-auto text-center md:text-left md:max-w-none;
+}
+.banner {
+    @apply max-w-screen-xl mx-auto grid grid-cols-12 gap-8 items-center;
+}
+.applycation-block {
+    @apply px-5 gap-y-6 pb-16 justify-center items-center  grid grid-cols-1 max-w-screen-xl mx-auto lg:grid-cols-3 lg:items-stretch lg:px-20;
+}
+.applycation-block-child {
+    @apply pt-6 px-6 pb-[51px] bg-[#353b4b] rounded-2xl first-of-type:-mt-52 max-w-xs sm:max-w-none md:first-of-type:mt-16 md:grid grid-cols-5 gap-x-6 items-center md:py-12 md:max-w-lg mx-auto lg:first-of-type:-mt-52 lg:-mt-52 lg:max-w-[294px] lg:block;
+}
+.appycation-block-child-text {
+    @apply space-y-6 text-center md:text-left lg:text-center col-span-3;
+}

@@ -1,0 +1,6 @@
+.header-menu {
+  @apply hidden md:block md:text-sm lg:text-sm text-white font-normal hover:text-gray-200 font-montserrat transition-all;
+}
+.header-menu a {
+  @apply block py-2
+}
