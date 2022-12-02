@@ -1,7 +1,8 @@
-import React from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import AuthUser from './AuthUser';
+import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
+import state from '../utils/localStorage'
+
 export const PrivateRoute = () => {
-    const {getToken} = AuthUser(); 
-    return getToken() ? <Outlet /> : <Navigate to="/login" />;
+  const token = state.getToken()
+  return token ? <Outlet /> : <Navigate to='/login' />
 }

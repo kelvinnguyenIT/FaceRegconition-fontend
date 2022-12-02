@@ -1,29 +1,29 @@
 import { useState } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { login } from '../../api/services/AuthUser'
+import { register } from '../../api/services/AuthUser'
 import { notifyFail, ToastCustom } from '../../components/Toast'
-import state from '../../utils/localStorage'
-
-export function Login() {
+import { get } from 'lodash/get'
+export function Register() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [rePassword, setRePassword] = useState('')
   const navigate = useNavigate()
 
-  const handleLogin = async (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault()
     const payload = {
       username: username,
       password: password,
+      re_password: rePassword,
+      role: 2,
     }
-    login(payload)
+    register(payload)
       .then(({ data }) => {
-        const { user, token } = data
-        state.set('user', user)
-        state.set('token', token)
-        navigate('/user')
+        navigate('/login')
       })
-      .catch((error) => {
-        notifyFail(error.response.data.errors[0][0])
+      .catch(({ response: { data } }) => {
+        notifyFail(get(data, 'message', ''))
       })
   }
 
@@ -35,7 +35,7 @@ export function Login() {
             Welcome
           </h1>
           <p className='text-center mt-2 font-montserrat'>
-            Login to Face Recognition
+            Register to Face Recognition
           </p>
           <form>
             <div className='form-group mb-6 mt-6 font-montserrat'>
@@ -98,12 +98,33 @@ export function Login() {
                 placeholder='Password'
               />
             </div>
-            <p
-              id='emailHelp'
-              className='text-sm font-montserrat font-bold text-gray-600'
-            >
-              Forgot password?
-            </p>
+            <div className='form-group mb-4 font-montserrat'>
+              <label className='form-label inline-block mb-2 text-gray-700'>
+                re-Password
+              </label>
+              <input
+                type='password'
+                onChange={(e) => setRePassword(e.target.value)}
+                className='form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-[#ff1d53] focus:outline-dotted'
+                id='re-password'
+                name='re-password'
+                placeholder='re-Password'
+              />
+            </div>
+
             <div
               className='justify-center
       items-center
@@ -133,16 +154,16 @@ export function Login() {
       duration-150
       ease-in-out
       font-montserrat'
-                onClick={handleLogin}
+                onClick={handleSignIn}
               >
-                Login
+                Register
               </button>
             </div>
 
             <p id='emailHelp' className='text-sm font-montserrat text-gray-600'>
-              You don't have a account?{' '}
-              <Link to='/register' className='font-baloo font-bold'>
-                Sign up
+              You have a account?{' '}
+              <Link to='/login' className='font-baloo font-bold'>
+                Log in
               </Link>
             </p>
           </form>
