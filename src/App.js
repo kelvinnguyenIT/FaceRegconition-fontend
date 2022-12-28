@@ -13,7 +13,6 @@ import { Technology } from './app/containers/Technology'
 import { Articles } from './app/containers/Aticles'
 import { Contact } from './app/containers/Contact'
 import { About } from './app/containers/About'
-import { Register } from './app/containers/Register'
 import React from 'react'
 import { MyHome } from './app/containers/MyHome'
 
@@ -40,7 +39,6 @@ function App() {
           </Route>
         </Route>
         <Route path='/login' element={<LoginRoute />} />
-        <Route path='/register' element={<Register />} />
       </Routes>
     </BrowserRouter>
   )

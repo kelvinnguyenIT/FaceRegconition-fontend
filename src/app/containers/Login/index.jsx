@@ -138,13 +138,6 @@ export function Login() {
                 Login
               </button>
             </div>
-
-            <p id='emailHelp' className='text-sm font-montserrat text-gray-600'>
-              You don't have a account?{' '}
-              <Link to='/register' className='font-baloo font-bold'>
-                Sign up
-              </Link>
-            </p>
           </form>
         </div>
       </div>
