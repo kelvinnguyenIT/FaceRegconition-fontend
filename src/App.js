@@ -16,6 +16,7 @@ import { About } from './app/containers/About'
 import { Register } from './app/containers/Register'
 import React from 'react'
 import { MyHome } from './app/containers/MyHome'
+import Scheduler from './app/containers/Scheduler'
 
 function App() {
   return (
@@ -27,8 +28,11 @@ function App() {
           <Route path='/articles' element={<Articles />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
+
           <Route exact path='/' element={<PrivateRoute />}>
             <Route path='/user' element={<MyHome />} />
+            <Route path='/schedule' element={<Scheduler />} />
+
             <Route path='/profile' element={<Profile />}>
               <Route index element={<Summary />} />
               <Route path='/profile/edit' element={<EditForm />} />

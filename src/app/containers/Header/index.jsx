@@ -77,9 +77,10 @@ export function Header() {
                   ATTENDENCE
                 </li>
               </Link>
-              <Link to='/profile'>
+
+              <Link to='/schedule'>
                 <li className='text-white font-montserrat font-bold text-sm hidden lg:block'>
-                  PROFILE
+                  SCHEDULE
                 </li>
               </Link>
               <li className='relative'>
@@ -108,13 +109,11 @@ export function Header() {
                     </p>
                   </Link>
                   <Link to='/profile'>
-                    <p className='p-2 text-[#687382] hover:text-white block lg:hidden'>
+                    <p className='p-2 text-[#687382] hover:text-white font-montserrat font-bold text-sm text-left'>
                       PROFILE
                     </p>
                   </Link>
-                  <p className='p-2 text-[#687382]  hover:text-white text-left'>
-                    MEMBERSHIP
-                  </p>
+
                   <button
                     onClick={logoutUser}
                     className='p-2 text-[#687382] hover:text-white font-montserrat font-bold text-sm text-left'
