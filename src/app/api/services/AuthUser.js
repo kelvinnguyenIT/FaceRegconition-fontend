@@ -10,8 +10,3 @@ export const logout = () => {
   state.remove('token')
   state.remove('user')
 }
-
-export const register = async (payload) => {
-  const data = await Http.post(`/register`, payload)
-  return data
-}

@@ -1,20 +1,26 @@
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { fetchAttendance, storeAttendance } from '../../api/services/Attendance'
+import {
+  fetchAttendance,
+  storeAttendance,
+  storeCheckOut,
+} from '../../api/services/Attendance'
 import { notifyFail, notifySuccess, ToastCustom } from '../../components/Toast'
 import state from '../../utils/localStorage'
 
 export function MyHome() {
   const user = state.getState('user')
   const [recognitionFilterList, setRecognitionFilterList] = useState([])
+  const [totalTime, setTotalTime] = useState('00:00:00')
   const [payload, setPayload] = useState({
     month: new Date(),
   })
 
   useEffect(() => {
     fetchAttendance(payload)
-      .then(({ data }) => {
+      .then(({ data, total_time }) => {
         setRecognitionFilterList(data)
+        setTotalTime(total_time)
       })
       .catch(() => {
         notifyFail('Error Fetch Data')
@@ -32,6 +38,18 @@ export function MyHome() {
     storeAttendance()
       .then(() => {
         notifySuccess('Attendance Success')
+        setPayload({ ...payload })
+      })
+      .catch(({ response }) => {
+        const { data } = response
+        notifyFail(data.errors.exist[0])
+      })
+  }
+
+  const handleCheckOut = () => {
+    storeCheckOut()
+      .then(() => {
+        notifySuccess('CheckOut Success')
         setPayload({ ...payload })
       })
       .catch(({ response }) => {
@@ -74,33 +92,24 @@ export function MyHome() {
             </label>
             <input
               type='month'
-              className='
-        form-control
-        block
-        w-full
-        px-3
-        py-1.5
-        text-base
-        font-normal
-        bg-[#252d40]
-        border border-solid border-gray-300
-        rounded
-        transition
-        ease-in-out
-        m-0
-        font-montserrat
-        text-white
-         focus:bg-[#2a3349] focus:outline-none
-      '
+              className=' form-control block w-full px-3 py-1.5 text-base font-normal bg-[#252d40] border border-solid border-gray-300 rounded transition ease-in-out m-0 font-montserrat text-white focus:bg-[#2a3349] focus:outline-none'
               onChange={(e) => changePayload(e)}
               placeholder='Search'
             />
-            <button
-              className='relative mt-8 rounded-full leading-5 font-medium text-center select-none border pt-2.5 pb-3 text-base border-[#ff1d53] bg-[#ff1d53] text-white   w-1/3  block'
-              onClick={handleAttendance}
-            >
-              <span>Attendance</span>
-            </button>
+            <div className='flex flex-row'>
+              <button
+                className='relative mt-8 rounded-full leading-5 px-5 font-medium text-center select-none border pt-2.5 pb-3 text-base border-[#ff1d53] bg-[#ff1d53] text-white block'
+                onClick={handleAttendance}
+              >
+                <span>Check In</span>
+              </button>
+              <button
+                className='relative mt-8 ml-5 rounded-full leading-5 px-5 font-medium text-center select-none border pt-2.5 pb-3 text-base border-[#ff1d53] bg-[#ff1d53] text-white block'
+                onClick={handleCheckOut}
+              >
+                <span>Check Out</span>
+              </button>
+            </div>
           </div>
         </div>
         <div className='flex flex-col'>
@@ -126,6 +135,18 @@ export function MyHome() {
                         scope='col'
                         className='text-base font-medium  px-6 py-4 text-left'
                       >
+                        Check In
+                      </th>
+                      <th
+                        scope='col'
+                        className='text-base font-medium  px-6 py-4 text-left'
+                      >
+                        Check Out
+                      </th>
+                      <th
+                        scope='col'
+                        className='text-base font-medium  px-6 py-4 text-left'
+                      >
                         Time
                       </th>
                       <th
@@ -136,33 +157,49 @@ export function MyHome() {
                       </th>
                     </tr>
                   </thead>
-                  {recognitionFilterList.length ? (
-                    <tbody className='font-montserrat'>
-                      {recognitionFilterList.map((item, index) => (
-                        <tr
-                          key={item.id}
-                          className='border-b transition duration-300 ease-in-out hover:bg-[#252d40]'
-                        >
-                          <td className='px-6 py-4 whitespace-nowrap text-sm font-medium '>
-                            {index + 1}
-                          </td>
-                          <td className='text-base  font-light px-6 py-4 whitespace-nowrap'>
-                            {new Date(item.datetime).toLocaleDateString()}
-                          </td>
-                          <td className='text-base  font-light px-6 py-4 whitespace-nowrap'>
-                            {new Date(item.datetime).toLocaleTimeString()}
-                          </td>
-                          <td className='text-base text-red-500 font-light px-6 py-4 whitespace-nowrap'>
-                            {item.is_late_label}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  ) : (
-                    <tbody className='p-4 font-montserrat text-base'>
-                      No results were found
-                    </tbody>
-                  )}
+                  <tbody className='font-montserrat'>
+                    {recognitionFilterList.map((item, index) => (
+                      <tr
+                        key={item.id}
+                        className='border-b transition duration-300 ease-in-out hover:bg-[#252d40]'
+                      >
+                        <td className='px-6 py-4 whitespace-nowrap text-sm font-medium '>
+                          {index + 1}
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap text-sm font-medium '>
+                          {new Date(item.date).toLocaleDateString()}
+                        </td>
+                        <td className='text-base  font-light px-6 py-4 whitespace-nowrap'>
+                          {item.check_in &&
+                            new Date(item.check_in).toLocaleTimeString()}
+                        </td>
+                        <td className='text-base  font-light px-6 py-4 whitespace-nowrap'>
+                          {item.check_out
+                            ? new Date(item.check_out).toLocaleTimeString()
+                            : item.check_in
+                            ? 'Pending'
+                            : ''}
+                        </td>
+                        <td className='text-base  font-light px-6 py-4 whitespace-nowrap'>
+                          {item.time ? item.time : ''}
+                        </td>
+                        <td className='text-base text-red-500 font-light px-6 py-4 whitespace-nowrap'>
+                          {item.is_late_label}
+                        </td>
+                      </tr>
+                    ))}
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td className='px-6 py-4 whitespace-nowrap text-sm font-medium '>
+                        Total
+                      </td>
+                      <td></td>
+                      <td className='px-6 py-4 whitespace-nowrap text-sm font-medium '>
+                        {totalTime}
+                      </td>
+                    </tr>
+                  </tbody>
                 </table>
               </div>
             </div>
