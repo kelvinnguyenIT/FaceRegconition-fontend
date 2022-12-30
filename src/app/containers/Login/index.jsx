@@ -104,35 +104,10 @@ export function Login() {
             >
               Forgot password?
             </p>
-            <div
-              className='justify-center
-      items-center
-      flex
-      flex-col'
-            >
+            <div className='justify-center items-center flex flex-col'>
               <button
-                className='
-              w-full
-              h-11
-      px-6
-      py-2.5
-      mt-5
-      mb-5
-      bg-[#ff1d53]
-      text-white
-      font-medium
-      text-base
-      leading-tight
-      uppercase
-      rounded
-      shadow-md
-      hover:bg-[#e91a4a] hover:shadow-lg
-      focus:bg-[#e91a4a] focus:shadow-lg focus:outline-none focus:ring-0
-      active:bg-[#e91a4a] active:shadow-lg
-      transition
-      duration-150
-      ease-in-out
-      font-montserrat'
+                className=' w-full h-11 px-6 py-2.5 mt-5 mb-5 bg-[#ff1d53] text-white font-medium text-base leading-tight
+                uppercase rounded shadow-md hover:bg-[#e91a4a] hover:shadow-lg focus:bg-[#e91a4a] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#e91a4a] active:shadow-lg transition duration-150 ease-in-out font-montserrat'
                 onClick={handleLogin}
               >
                 Login

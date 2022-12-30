@@ -5,6 +5,7 @@ import {
   storeAttendance,
   storeCheckOut,
 } from '../../api/services/Attendance'
+import { ChatBox } from '../../components/ChatBox'
 import { notifyFail, notifySuccess, ToastCustom } from '../../components/Toast'
 import state from '../../utils/localStorage'
 
@@ -207,6 +208,7 @@ export function MyHome() {
         </div>
       </div>
       <ToastCustom />
+      <ChatBox />
     </div>
   )
 }
