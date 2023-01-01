@@ -6,11 +6,13 @@ import {
   storeCheckOut,
 } from '../../api/services/Attendance'
 import { ChatBox } from '../../components/ChatBox'
+import { OverlaySpinner } from '../../components/OverlaySpinner'
 import { notifyFail, notifySuccess, ToastCustom } from '../../components/Toast'
 import state from '../../utils/localStorage'
 
 export function MyHome() {
   const user = state.getState('user')
+  const [loading, setLoading] = useState(true)
   const [recognitionFilterList, setRecognitionFilterList] = useState([])
   const [totalTime, setTotalTime] = useState('00:00:00')
   const [payload, setPayload] = useState({
@@ -25,6 +27,9 @@ export function MyHome() {
       })
       .catch(() => {
         notifyFail('Error Fetch Data')
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }, [payload])
 
@@ -209,6 +214,7 @@ export function MyHome() {
       </div>
       <ToastCustom />
       <ChatBox />
+      <OverlaySpinner open={loading} />
     </div>
   )
 }
