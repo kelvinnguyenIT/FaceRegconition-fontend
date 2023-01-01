@@ -24,7 +24,6 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path='/technology' element={<Technology />} />
-          <Route path='/articles' element={<Articles />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/about' element={<About />} />
 

@@ -10,39 +10,19 @@ export function Footer() {
             <Link to='/'>HOME</Link>
           </div>
           <div className='footer-menu'>
+            <Link to='/technology'>TECHNOLOGY</Link>
+          </div>
+          <div className='footer-menu'>
             <Link to='/about'>ABOUT</Link>
           </div>
           <div className='footer-menu'>
-            <Link to='/'>MEMBERSHIP</Link>
-          </div>
-          <div className='footer-menu'>
-            <Link to='/'>INVEST</Link>
-          </div>
-          <div className='footer-menu'>
-            <Link to='/help'>FAQ</Link>
-          </div>
-          <div className='footer-menu'>
-            <Link to='/'>CAREER</Link>
-          </div>
-          <div className='footer-menu'>
-            <Link to='/'>RESOURCES</Link>
+            <Link to='/contact'>CONTACT</Link>
           </div>
         </nav>
 
         <footer className='pb-12 max-w-screen-xl mx-auto divide-y divide-neutral-secondary'>
           <div className='flex flex-col md:grid md:grid-cols-2 xl:grid-cols-3 gap-x-8'>
             <section className='text-neutral-quinary text-center xl:text-left py-8 space-y-8 order-1'>
-              <figure className='hidden xl:block'>
-                <div className='footer-social-icon'>
-                  <div>
-                    <img
-                      className='max-w-full block m-0 border-none p-0'
-                      alt='logo.svg'
-                      src='/assets/icons/logo.svg'
-                    />
-                  </div>
-                </div>
-              </figure>
               <div>
                 <p className='text-base font-extrabold font-montserrat text-gray-500'>
                   :Face Recognition
@@ -120,12 +100,12 @@ export function Footer() {
             <section className='text-gray-500 text-sm font-montserrat pt-8 md:py-8 space-y-4 order-2 xl:order-2 border-t border-neutral-secondary md:border-t-0'>
               <p>
                 Face Recognition is recognized as a tax-exempt public charity as
-                described in Sections 501(c)(3), 509(a)(1), and 170(b)(1)(A)(vi)
-                of the Internal Revenue Code. EIN: 86‑3177440.
+                described in Sections 0236.6.552.688.
               </p>
               <address className='not-italic'>
-                300 3rd Street, Suite 7<br />
-                Los Altos, CA 94022
+                470 Tran Dai Nghia, Hoa Quy, NHS, Da Nang
+                <br />
+                Da Nang, Viet Nam
               </address>
               <p className='hidden md:block'>
                 For more detail, please refer to our privacy policy and donor

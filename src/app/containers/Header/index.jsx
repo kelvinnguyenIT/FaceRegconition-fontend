@@ -47,11 +47,6 @@ export function Header() {
                 <b>TECHNOLOGY</b>
               </li>
             </Link>
-            <Link to='/articles'>
-              <li className='header-menu'>
-                <b>ARTICLES</b>
-              </li>
-            </Link>
             <Link to='/about'>
               <li className='header-menu'>
                 <b>ABOUT US</b>
